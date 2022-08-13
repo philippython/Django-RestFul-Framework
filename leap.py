@@ -19,4 +19,3 @@ outcome = (f"You have {years_remaining} years,{months_remaining} months, {weeks_
 print(outcome)
 
 # Open to learning how to leap year calculation separately and other ways to write the code to arrive at the same result.
-
