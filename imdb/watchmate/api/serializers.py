@@ -1,4 +1,3 @@
-from email import charset
 from rest_framework import serializers
 from watchmate.models import Movie
 
@@ -7,3 +6,14 @@ class MovieSerializers(serializers.Serializer):
     name = serializers.CharField()
     description = serializers.CharField()
     active = serializers.BooleanField()
+
+    def create(self, validated_data):
+        return Movie.objects.create(**validated_data)
+
+    def update(self, instance, validate_data):
+        instance.name = validate_data.get('name', instance.name)
+        instance.description = validate_data.get('description', instance.description)
+        instance.active = validate_data.get('active', instance.active)
+        instance.save()
+        return instance
+    
