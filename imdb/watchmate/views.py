@@ -1,8 +1,10 @@
+"""
 from math import fabs
 from django.shortcuts import render
 import pkg_resources
 from .models import Movie
 from django.http import JsonResponse
+
 # Create your views here.
 
 def movie_list(request):
@@ -20,3 +22,4 @@ def individual_movie(request, pk):
         'active' : movie.active
     }
     return JsonResponse(data)
+"""
