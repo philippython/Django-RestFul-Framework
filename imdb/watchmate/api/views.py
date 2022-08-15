@@ -33,6 +33,7 @@ class MovieDetailsView(APIView):
     def put(self, request, pk):
         try:
             movie = Movie.objects.get(pk=pk)
+            
         except Movie.DoesNotExist:
             return Response({'error': 'Movie does not exist'}, status=status.HTTP_404_NOT_FOUND)
         else:
