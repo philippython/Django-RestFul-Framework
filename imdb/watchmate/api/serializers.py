@@ -17,7 +17,7 @@ class MovieSerializers(serializers.ModelSerializer):
     def validate_name(self, value):
         if len(value) < 2 :
             raise serializers.ValidationError("name length most be greater than two")
-
+        return value
     
 """
 field level validation
