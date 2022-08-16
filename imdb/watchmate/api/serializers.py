@@ -4,8 +4,6 @@ from watchmate.models import WatchList, StreamPlatform
 
 
 class WatchListSerializers(serializers.ModelSerializer):
-    len_name = serializers.SerializerMethodField()
-
     class Meta:
         model = WatchList
         fields = "__all__"
@@ -18,7 +16,7 @@ class StreamPlatformSerializers(serializers.ModelSerializer):
     class Meta:
         model = StreamPlatform
         fields = "__all__"
-        
+
 """
     def get_len_name(self, object):
         return len(object.title)
