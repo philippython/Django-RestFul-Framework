@@ -4,11 +4,17 @@ from watchmate.models import Movie
 
 
 class MovieSerializers(serializers.ModelSerializer):
+    len_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Movie
         fields = "__all__"
+        read_only_fields = ["id"]
     
 
+    def get_len_name(self, object):
+        return len(object.name)
+        
     def validate(self , data):
         if data['name'] == data['description']:
             raise serializers.ValidationError('Name and description must not be same')
