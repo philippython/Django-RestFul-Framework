@@ -3,11 +3,12 @@ from watchmate.models import Movie
 
 
 
-class MovieSerializers(serializers.Modelserializers):
+class MovieSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = "__all__"
     
+
     def validate(self , data):
         if data['name'] == data['description']:
             raise serializers.ValidationError('Name and description must not be same')
