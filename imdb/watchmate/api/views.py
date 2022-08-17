@@ -92,7 +92,7 @@ class StreamPlatformDetailView(APIView):
             raise Response({'error': 'Stream Platform does not exist'}, status=status.HTTP_404_NOT_FOUND)
         else:
             stream_platform.delete()
-            
+            return Response({'success': True}, status=status.HTTP_204_NO_CONTENT)
 
 
         
