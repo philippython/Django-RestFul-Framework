@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.response import Response
 from watchmate.models import WatchList, StreamPlatform
 
 
@@ -11,13 +12,12 @@ class WatchListSerializers(serializers.ModelSerializer):
 
 class StreamPlatformSerializers(serializers.ModelSerializer):
     watchlist = WatchListSerializers(many=True, read_only=True)
-    watch_items =  serializers.SerializerMethodField()
+
     class Meta:
         model = StreamPlatform
         fields = "__all__"
 
-        def get_watch_items(self, data):
-            return len(data.watchlist)
+         
 """
     def get_len_name(self, object):
         return len(object.title)
