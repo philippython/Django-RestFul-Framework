@@ -2,7 +2,6 @@ from rest_framework import serializers
 from watchmate.models import WatchList, StreamPlatform
 
 
-
 class WatchListSerializers(serializers.ModelSerializer):
     class Meta:
         model = WatchList
