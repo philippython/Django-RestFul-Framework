@@ -1,37 +1,46 @@
-from .serializers import (WatchListSerializers, StreamPlatformSerializers,
-                            Reviewserializers)
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import (GenericAPIView, ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
 from rest_framework.mixins import (ListModelMixin, CreateModelMixin,
                                    RetrieveModelMixin, UpdateModelMixin,
                                    DestroyModelMixin)
+from .serializers import (WatchListSerializers, StreamPlatformSerializers,
+                          Reviewserializers)
 # from rest_framework.decorators import api_view
 from watchmate.models import WatchList, StreamPlatform, Review
 
-class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
+class ReviewListAV(ListCreateAPIView):
     queryset = Review.objects.all()
-    serializer_class = Reviewserializers
+    serializers_class = Reviewserializers
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-class ReviewDetail(RetrieveModelMixin, UpdateModelMixin,DestroyModelMixin, GenericAPIView):
+class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
-    serializer_class = Reviewserializers
+    serializers_class = Reviewserializers
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+# class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
+#     queryset = Review.objects.all()
+#     serializer_class = Reviewserializers
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+#
+# class ReviewDetail(RetrieveModelMixin, UpdateModelMixin,DestroyModelMixin, GenericAPIView):
+#     queryset = Review.objects.all()
+#     serializer_class = Reviewserializers
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+#
+#     def put(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+#
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
 
 class WatchListView(APIView):
 
