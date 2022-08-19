@@ -2,25 +2,22 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from watchmate.models import WatchList, StreamPlatform, Review
 
+class Reviewserializers(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = "__all__"
 
 class WatchListSerializers(serializers.ModelSerializer):
+    reviews = Reviewserializers(read_only=True)
     class Meta:
         model = WatchList
         fields = "__all__"
-        read_only_fields = ["id"]
 
 
 class StreamPlatformSerializers(serializers.ModelSerializer):
     watchlist = WatchListSerializers(many=True, read_only=True)
-
     class Meta:
         model = StreamPlatform
-        fields = "__all__"
-
-class Reviewserializers(serializers.ModelSerializer):
-
-    class Meta:
-        model = Review
         fields = "__all__"
 
 

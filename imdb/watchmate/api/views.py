@@ -9,13 +9,13 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin
 from watchmate.models import WatchList, StreamPlatform, Review
 
 class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
-    query_set = Review.objects.all()
+    queryset = Review.objects.all()
     serializer_class = Reviewserializers
 
-    def get(request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-    def post(request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
 
