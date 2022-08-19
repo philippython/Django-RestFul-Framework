@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.response import Response
-from watchmate.models import WatchList, StreamPlatform
+from watchmate.models import WatchList, StreamPlatform, Review
 
 
 class WatchListSerializers(serializers.ModelSerializer):
@@ -8,7 +8,7 @@ class WatchListSerializers(serializers.ModelSerializer):
         model = WatchList
         fields = "__all__"
         read_only_fields = ["id"]
-    
+
 
 class StreamPlatformSerializers(serializers.ModelSerializer):
     watchlist = WatchListSerializers(many=True, read_only=True)
@@ -17,7 +17,13 @@ class StreamPlatformSerializers(serializers.ModelSerializer):
         model = StreamPlatform
         fields = "__all__"
 
-         
+class Reviewserializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        fields = "__all__"
+
+
 """
     def get_len_name(self, object):
         return len(object.title)
@@ -26,12 +32,12 @@ class StreamPlatformSerializers(serializers.ModelSerializer):
         if data['name'] == data['description']:
             raise serializers.ValidationError('Name and description must not be same')
         return data
-    
+
     def validate_name(self, value):
         if len(value) < 2 :
             raise serializers.ValidationError("name length most be greater than two")
         return value
-    
+
 field level validation
 
 def validator_name(value):
@@ -54,9 +60,9 @@ class MovieSerializers(serializers.Serializer):
         instance.save()
         return instance
 
-   
+
     object level validation
-  
+
     def validate(self , data):
         if data['name'] == data['description']:
             raise serializers.ValidationError('Name and description must not be same')
