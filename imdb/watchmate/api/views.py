@@ -8,7 +8,7 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin
 # from rest_framework.decorators import api_view
 from watchmate.models import WatchList, StreamPlatform, Review
 
-class ReviewListAV(ListModelMixin, CreateModelMixin,GenericAPIView):
+class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
     query_set = Review.objects.all()
     serializer_class = Reviewserializers
 
