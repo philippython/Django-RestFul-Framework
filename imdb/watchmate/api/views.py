@@ -12,12 +12,16 @@ from .serializers import (WatchListSerializers, StreamPlatformSerializers,
 from watchmate.models import WatchList, StreamPlatform, Review
 
 class ReviewListAV(ListCreateAPIView):
-    queryset = Review.objects.all()
-    serializers_class = Reviewserializers
+    serializer_class = Reviewserializers
+    
+    def get_queryset(self,request, pk):
+        review = Review.objects.filter(watchlist=pk)
+        return review
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
-    serializers_class = Reviewserializers
+    serializer_class = Reviewserializers
+
 
 # class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
 #     queryset = Review.objects.all()
