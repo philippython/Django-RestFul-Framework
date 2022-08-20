@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.generics import (GenericAPIView,ListAPIView,
+from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.mixins import (ListModelMixin, CreateModelMixin,
                                    RetrieveModelMixin, UpdateModelMixin,
@@ -11,13 +11,20 @@ from .serializers import (WatchListSerializers, StreamPlatformSerializers,
 # from rest_framework.decorators import api_view
 from watchmate.models import WatchList, StreamPlatform, Review
 
-class ReviewListAV(ListAPIView):
+class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
 
     def get_queryset(self):
         pk = self.kwargs['pk']
         review = Review.objects.filter(watchlist=pk)
         return review
+
+class ReviewCreate(CreateAPIView):
+    serializer_class =Reviewserializers
+
+    def perform_create(self, serializer):
+        watchlist = WatchList.objects.get(pk=self.kwargs['pk'])
+        serializer.save(watchlist=watchlist)
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
