@@ -30,7 +30,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = Reviewserializers
 
-
+#  viewsets and routers
 # class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
 #     queryset = Review.objects.all()
 #     serializer_class = Reviewserializers

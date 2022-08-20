@@ -5,7 +5,7 @@ from watchmate.models import WatchList, StreamPlatform, Review
 class Reviewserializers(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = "__all__"
+        exclude  = ['watchlist']
 
 class WatchListSerializers(serializers.ModelSerializer):
     reviews = Reviewserializers(many=True, read_only=True)
