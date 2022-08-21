@@ -28,9 +28,9 @@ class ReviewCreate(CreateAPIView):
         watchlist = WatchList.objects.get(pk=self.kwargs['pk'])
 
         review_queryset = Review.objects.filter(watchlist=watchlist, username=self.request.user)
-        if review_queryset:
+        if review_queryset.exists():
             raise ValidationError({'error': 'you already added a review for this movie'})
-        serializer.save(watchlist=watchlist)
+        serializer.save(watchlist=watchlist, username=self.request.user)
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
