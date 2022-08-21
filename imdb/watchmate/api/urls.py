@@ -4,8 +4,7 @@ from watchmate.api.views import ( WatchListView, WatchDetailsView,
                                   StreamPlatformListView,StreamPlatformDetailView,
                                   ReviewList, ReviewDetail, ReviewCreate)
 # from watchmate.api.views import movie_list, movie_details
-router = DefaultRouter()
-# router.register('stream', StreamPlatform)
+
 urlpatterns = [
         path('watchlist/', WatchListView.as_view(), name='watchlist'),
         path('watchdetails/<int:pk>/', WatchDetailsView.as_view(), name='single_watchlist'),
