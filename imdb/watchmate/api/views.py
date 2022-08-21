@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.exceptions import ValidationError
 from rest_framework import viewsets
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
@@ -25,6 +26,10 @@ class ReviewCreate(CreateAPIView):
 
     def perform_create(self, serializer):
         watchlist = WatchList.objects.get(pk=self.kwargs['pk'])
+
+        review_queryset = Review.objects.filter(watchlist=watchlist, username=self.request.user)
+        if review_queryset:
+            raise ValidationError({'error': 'you already added a review for this movie'})
         serializer.save(watchlist=watchlist)
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
