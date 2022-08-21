@@ -21,7 +21,7 @@ class ReviewList(ListAPIView):
         return review
 
 class ReviewCreate(CreateAPIView):
-    serializer_class =Reviewserializers
+    serializer_class = Reviewserializers
 
     def perform_create(self, serializer):
         watchlist = WatchList.objects.get(pk=self.kwargs['pk'])

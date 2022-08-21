@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from watchmate.models import WatchList, StreamPlatform, Review
 
 class Reviewserializers(serializers.ModelSerializer):
-    username = serializers.StringRelatedField()
+    username = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Review
         exclude  = ['watchlist']
