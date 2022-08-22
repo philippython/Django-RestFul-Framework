@@ -13,6 +13,8 @@ from .serializers import (WatchListSerializers, StreamPlatformSerializers,
                           Reviewserializers)
 # from rest_framework.decorators import api_view
 from watchmate.models import WatchList, StreamPlatform, Review
+from watchmate.api.permission import AdminOrReadOnly
+
 
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers

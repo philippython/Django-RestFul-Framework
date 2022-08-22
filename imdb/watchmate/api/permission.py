@@ -1,6 +1,7 @@
 from rest_framework.permissions import BasePermission, IsAdminUser
 
-class AdminOnly(BasePermission):
+class AdminOrReadOnly(IsAdminUser):
 
     def has_permisssions(self, request, view):
-        return bool(request.user and request.user.is_staff)
+        admin_permission = bool(request.user and request.user.is_staff)
+        return request.methodd == 'GET'or admin_permission
