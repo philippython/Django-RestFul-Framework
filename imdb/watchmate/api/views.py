@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import ValidationError
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.mixins import (ListModelMixin, CreateModelMixin,
@@ -16,8 +16,8 @@ from watchmate.models import WatchList, StreamPlatform, Review
 
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
-    permission_classes = [IsAuthenticated]
-    
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_queryset(self):
         pk = self.kwargs['pk']
         review = Review.objects.filter(watchlist=pk)
@@ -25,6 +25,8 @@ class ReviewList(ListAPIView):
 
 class ReviewCreate(CreateAPIView):
     serializer_class = Reviewserializers
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 
     def perform_create(self, serializer):
         watchlist = WatchList.objects.get(pk=self.kwargs['pk'])
