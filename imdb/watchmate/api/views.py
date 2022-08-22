@@ -36,6 +36,11 @@ class ReviewCreate(CreateAPIView):
         review_queryset = Review.objects.filter(watchlist=watchlist, username=self.request.user)
         if review_queryset.exists():
             raise ValidationError({'error': 'you already added a review for this movie'})
+
+        if watchlist.total_rating > 1 :
+            watch_list.avg_rating = Sum(review_queryset.rating) / watchlist.total_rating
+        watchlist.avg_rating = watchlist.total_rating
+        
         serializer.save(watchlist=watchlist, username=self.request.user)
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
