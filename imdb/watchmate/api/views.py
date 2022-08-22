@@ -13,7 +13,7 @@ from .serializers import (WatchListSerializers, StreamPlatformSerializers,
                           Reviewserializers)
 # from rest_framework.decorators import api_view
 from watchmate.models import WatchList, StreamPlatform, Review
-from watchmate.api.permission import AdminOrReadOnly
+from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 
 
 class ReviewList(ListAPIView):
@@ -42,7 +42,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = Reviewserializers
 
-    permission_classes = [AdminOrReadOnly]
+    permission_classes = [ReviewUserOrReadOnly]
 #  viewsets and routers
 
 # class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
