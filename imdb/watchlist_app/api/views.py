@@ -4,12 +4,24 @@ from rest_framework  import status
 from rest_framework.exceptions import ValidationError
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from .serializer import RegistrationSerializers
 
 @api_view(['POST',])
 def registration_view(request):
     if request.method == "POST":
         serializer = RegistrationSerializers(data=request.data)
+
+        data = {}
+
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            account = serializer.save()
+            data["response"] = "Registration Successful"
+            data["username"] = account.username
+            data["email"] = account.email
+            token = Token.objects.get(user=account).key
+            data["token"] = token
+            return Response(data)
+
+        else:
+            return Response(serializer.errors)

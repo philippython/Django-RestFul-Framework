@@ -1,5 +1,7 @@
 from django.test import TestCase
 
+print(dir(__builtins__))
+print(dir(list))
 # Create your tests here.
 # unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
 #
