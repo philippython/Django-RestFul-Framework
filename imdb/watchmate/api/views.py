@@ -18,7 +18,7 @@ from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -54,6 +54,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = Reviewserializers
 
     permission_classes = [ReviewUserOrReadOnly]
+
 #  viewsets and routers
 
 # class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
