@@ -34,3 +34,22 @@ class Review(models.Model):
 
     def  __str__(self):
         return str(self.rating) + "-" + self.watchlist.title
+
+
+formated_list = []
+# for un in unordered_list:
+#     un = un.replace(">", "") 
+#     formated_list.append(un)
+
+# print(formated_list)
+# output = {}
+# for n in formated_list:
+#     print(n)
+#     formated_list.remove(n)
+# print(formated_list)
+#     for w in formated_list:
+#         formated_list.pop(formated_list.index(w))
+#         if n[0] or n[1] != w[1]:
+#             formated_list.pop(formated_list.index(w))
+#             output[n[0]] = n[1]
+# print(output)
