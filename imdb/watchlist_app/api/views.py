@@ -5,7 +5,15 @@ from rest_framework.exceptions import ValidationError
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from  watchlist_app import models
 from .serializer import RegistrationSerializers
+
+
+@api_view(['POST',])
+def logout_view(request):
+    if request.method == 'POST':
+        request.user.auth_token.delete()
+        return Response({"response": "Logout successful "}, status=status.HTTP_202_ACCEPTED)
 
 @api_view(['POST',])
 def registration_view(request):
@@ -21,6 +29,7 @@ def registration_view(request):
             data["email"] = account.email
             token = Token.objects.get(user=account).key
             data["token"] = token
+
             return Response(data)
 
         else:
