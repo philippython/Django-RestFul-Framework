@@ -82,6 +82,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
 
 class WatchListView(APIView):
 
+    permisions_classes = [AdminOrReadOnly]
     def get(self, request):
         movies = WatchList.objects.all()
         serializer = WatchListSerializers(movies, many=True)
@@ -96,6 +97,9 @@ class WatchListView(APIView):
 
 
 class WatchDetailsView(APIView):
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request, pk):
         try:
             movie = WatchList.objects.get(pk=pk)
