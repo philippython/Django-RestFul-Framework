@@ -2,6 +2,7 @@ from array import array
 from django.test import TestCase
 
 # Create your tests here.
+"""
 class Property:
     def __init__(self) -> None:
         self.__name = "chris"
@@ -31,7 +32,7 @@ print(chris.exp)
 
 # chris.set_name("diva")
 # print(chris.get_name())
-"""
+
 unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
 firstletter = ""
 
