@@ -2,6 +2,25 @@ from array import array
 from django.test import TestCase
 
 # Create your tests here.
+class Property:
+    def __init__(self) -> None:
+        self.__name = "chris"
+        self.__exp = None
+        
+
+    @property
+    def exp(self):
+        return self.__exp
+
+    @property 
+    def name(self, exp):
+        self.__ = name 
+
+    def __str__(self) -> str:
+        return self.__name
+
+chris = Property()
+"""
 unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
 firstletter = ""
 
@@ -35,7 +54,7 @@ def find_word(arr):
         return "".join(word)
 
 find_word(unordered_list)
-"""
+
 function find_word(arr) {
   let before = []
   let after = []
