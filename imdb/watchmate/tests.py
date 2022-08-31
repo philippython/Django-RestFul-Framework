@@ -14,6 +14,8 @@ class Property:
 
     @exp.setter
     def exp(self, exp):
+        if exp > 100:
+            raise ValueError("Exp too high!!")
         self.__exp = exp
 
     @exp.deleter
@@ -24,9 +26,9 @@ class Property:
         return self.__name
 
 chris = Property()
-chris.exp = 120
+chris.exp = 20
 print(chris.exp)
-chris = Property()
+
 # chris.set_name("diva")
 # print(chris.get_name())
 """
