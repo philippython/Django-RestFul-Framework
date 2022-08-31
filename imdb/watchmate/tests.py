@@ -13,13 +13,18 @@ class Property:
         return self.__exp
 
     @property 
-    def name(self, exp):
-        self.__ = name 
+    def exp(self, exp):
+        self.__exp = exp
+
+    @property
+    def exp(self):
+        del self.__exp
 
     def __str__(self) -> str:
         return self.__name
 
 chris = Property()
+
 """
 unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
 firstletter = ""
