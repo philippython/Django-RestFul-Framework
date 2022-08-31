@@ -12,11 +12,11 @@ class Property:
     def exp(self):
         return self.__exp
 
-    @property 
+    @exp.setter
     def exp(self, exp):
         self.__exp = exp
 
-    @property
+    @exp.deleter
     def exp(self):
         del self.__exp
 
@@ -24,7 +24,11 @@ class Property:
         return self.__name
 
 chris = Property()
-
+chris.exp = 120
+print(chris.exp)
+chris = Property()
+# chris.set_name("diva")
+# print(chris.get_name())
 """
 unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
 firstletter = ""
