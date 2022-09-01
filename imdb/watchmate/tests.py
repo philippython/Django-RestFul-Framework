@@ -34,7 +34,6 @@ print(chris.exp)
 # print(chris.get_name())
 """
 unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
-firstletter = ""
 
 def find_word(arr):    
     before = []
@@ -45,13 +44,11 @@ def find_word(arr):
         before.append(i[0])
         after.append(i[2])
     
-    i = 0
-    while 1 < len(before) - 1:
-        print(i)
-        if before[i] not in after:
-            firstLetter = before[i]
-            word.append(firstLetter)
-        i += 1
+    
+    for char in before:
+        if char not in after:
+            word.append(char)
+
 
     for i  in range(0, len(arr) + 1):
         letter = word[i]
@@ -63,9 +60,9 @@ def find_word(arr):
             nextLetter = after[newIndex]
             word.append(nextLetter)
         
-        return "".join(word)
+    return "".join(word)
 
-find_word(unordered_list)
+print(find_word(unordered_list))
 
 """
 function find_word(arr) {
