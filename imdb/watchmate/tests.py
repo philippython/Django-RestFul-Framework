@@ -55,7 +55,7 @@ def find_word(arr):
         letter = word[i]
         nextLetter = ""
         newIndex = ""
-
+        # getting next letter using index
         if letter in before :
             newIndex = before.index(letter)
             nextLetter = after[newIndex]
