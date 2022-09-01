@@ -50,7 +50,7 @@ def find_word(arr):
         if char not in after:
             word.append(char)
 
-
+    # commenting Code for better understanding
     for i  in range(0, len(arr) + 1):
         letter = word[i]
         nextLetter = ""
