@@ -63,7 +63,10 @@ def find_word(arr):
     return "".join(word)
 
 print(find_word(unordered_list))
-
+print(find_word(["P>E","E>R","R>U"]))
+print(find_word(["I>N","A>I","P>A","S>P"]))
+print(find_word(["U>N", "G>A", "R>Y", "H>U", "N>G", "A>R"]))
+print(find_word(["I>F", "W>I", "S>W", "F>T"]))
 """
 function find_word(arr) {
   let before = []
@@ -103,8 +106,8 @@ function find_word(arr) {
   return word.join("")
 }
 
-console.log(find_word(["I>E", "M>I", "A>M", "D>A", "E>N"]));
-console.log(find_word(["P>E","E>R","R>U"]));
+print(find_word(["I>E", "M>I", "A>M", "D>A", "E>N"]));
+print(find_word(["P>E","E>R","R>U"]));
 console.log(find_word(["I>N","A>I","P>A","S>P"]));
 console.log(find_word(["U>N", "G>A", "R>Y", "H>U", "N>G", "A>R"]));
 console.log(find_word(["I>F", "W>I", "S>W", "F>T"]));
