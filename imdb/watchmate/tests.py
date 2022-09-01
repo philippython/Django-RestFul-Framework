@@ -32,7 +32,7 @@ print(chris.exp)
 
 # chris.set_name("diva")
 # print(chris.get_name())
-
+"""
 unordered_list = ["I>E", "M>I", "A>M", "D>A", "E>N"]
 firstletter = ""
 
@@ -67,6 +67,7 @@ def find_word(arr):
 
 find_word(unordered_list)
 
+"""
 function find_word(arr) {
   let before = []
   let after = []
