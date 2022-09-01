@@ -40,11 +40,12 @@ def find_word(arr):
     after = []
     word = []
 
+    # seperating last characters from first letters
     for i in arr:
         before.append(i[0])
         after.append(i[2])
     
-    
+    # getting first character in word
     for char in before:
         if char not in after:
             word.append(char)
