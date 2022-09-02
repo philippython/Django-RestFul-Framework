@@ -110,6 +110,7 @@ class WatchDetailsView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
     def put(self, request, pk):
         try:
+            # a05eb9958885cd9170d1fffce2ce77ecdaa53122
     
             movie = WatchList.objects.get(pk=pk)
 
@@ -132,6 +133,7 @@ class WatchDetailsView(APIView):
 
 class StreamPlatformListView(APIView):
 
+    permission_classes = [AdminOrReadOnly]
     def get(self, request):
         stream_platforms = StreamPlatform.objects.all()
         serializer = StreamPlatformSerializers(stream_platforms, many=True)
