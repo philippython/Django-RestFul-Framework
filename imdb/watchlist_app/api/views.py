@@ -34,3 +34,4 @@ def registration_view(request):
 
         else:
             return Response(serializer.errors)
+
