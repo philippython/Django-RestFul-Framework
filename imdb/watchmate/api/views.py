@@ -18,7 +18,7 @@ from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
-
+    
     def get_queryset(self):
         pk = self.kwargs['pk']
         review = Review.objects.filter(watchlist=pk)
@@ -26,7 +26,7 @@ class ReviewList(ListAPIView):
 
 class ReviewCreate(CreateAPIView):
     serializer_class = Reviewserializers
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 
     def perform_create(self, serializer):
@@ -49,8 +49,6 @@ class ReviewCreate(CreateAPIView):
         serializer.save(watchlist=watchlist, username=self.request.user)
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
-
-
     queryset = Review.objects.all()
     serializer_class = Reviewserializers
 
