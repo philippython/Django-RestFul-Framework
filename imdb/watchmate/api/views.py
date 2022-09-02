@@ -81,7 +81,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
 
 class WatchListView(APIView):
 
-    permisions_classes = [AdminOrReadOnly]
+    permission_classes = [AdminOrReadOnly]
 
     def get(self, request):
         movies = WatchList.objects.all()
@@ -110,6 +110,7 @@ class WatchDetailsView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
     def put(self, request, pk):
         try:
+    
             movie = WatchList.objects.get(pk=pk)
 
         except WatchList.DoesNotExist:
