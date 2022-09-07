@@ -12,12 +12,15 @@ from rest_framework.mixins import (ListModelMixin, CreateModelMixin,
 from .serializers import (WatchListSerializers, StreamPlatformSerializers,
                           Reviewserializers)
 # from rest_framework.decorators import api_view
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from watchmate.models import WatchList, StreamPlatform, Review
 from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
+from watchmate.api.throttling import ReviewCreateThrottle, ReviewListThrottle
 
 
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
+    throttle_classes = [ReviewListThrottle]
     
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -27,6 +30,7 @@ class ReviewList(ListAPIView):
 class ReviewCreate(CreateAPIView):
     serializer_class = Reviewserializers
     permission_classes = [IsAuthenticated]
+    throttle_classes = [ReviewCreateThrottle]
 
 
     def perform_create(self, serializer):
@@ -52,6 +56,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = Reviewserializers
 
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     permission_classes = [ReviewUserOrReadOnly]
 
 #  viewsets and routers
@@ -82,6 +87,8 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
 class WatchListView(APIView):
 
     permission_classes = [AdminOrReadOnly]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+
 
     def get(self, request):
         movies = WatchList.objects.all()
@@ -132,7 +139,6 @@ class WatchDetailsView(APIView):
             return Response({'success': True}, status=status.HTTP_204_NO_CONTENT)
 
 class StreamPlatformListView(APIView):
-
     permission_classes = [AdminOrReadOnly]
     def get(self, request):
         stream_platforms = StreamPlatform.objects.all()
