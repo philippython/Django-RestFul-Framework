@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.tokens import RefreshToken
 from  watchlist_app import models
 from .serializer import RegistrationSerializers
 
@@ -35,3 +36,4 @@ def registration_view(request):
         else:
             return Response(serializer.errors)
 
+    
