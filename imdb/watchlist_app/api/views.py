@@ -5,9 +5,9 @@ from rest_framework.exceptions import ValidationError
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.tokens import RefreshToken
 from .serializer import RegistrationSerializers
-# from  watchlist_app import models
+from  watchlist_app import models
 
 
 @api_view(['POST',])
@@ -28,15 +28,13 @@ def registration_view(request):
             data["response"] = "Registration Successful"
             data["username"] = account.username
             data["email"] = account.email
-
-            def get_tokens_for_user(account):
-                refresh = RefreshToken.for_user(account)
+            data["token"] = Token.objects.get(user=account).key
+            # refresh = RefreshToken.for_user(account)
             
-                data["JWT-token"] = {
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                }
-            get_tokens_for_user(account)
+            # data["JWT-token"] = {
+            #         'refresh': str(refresh),
+            #         'access': str(refresh.access_token),
+            #     }
             return Response(data)
 
         else:
