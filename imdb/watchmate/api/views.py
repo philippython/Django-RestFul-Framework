@@ -73,7 +73,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
 
 class WatchListView(APIView):
 
-    permission_classes = [AdminOrReadOnly]
+    # permission_classes = [AdminOrReadOnly]
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
 
