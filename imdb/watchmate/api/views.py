@@ -11,11 +11,12 @@ from rest_framework.mixins import (ListModelMixin, CreateModelMixin,
                                    DestroyModelMixin)
 from .serializers import (WatchListSerializers, StreamPlatformSerializers,
                           Reviewserializers)
-# from rest_framework.decorators import api_view
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from watchmate.models import WatchList, StreamPlatform, Review
 from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 from watchmate.api.throttling import ReviewCreateThrottle, ReviewListThrottle
+
 
 class UserReviewList(ListAPIView):
     serializer_class = Reviewserializers
@@ -28,7 +29,8 @@ class UserReviewList(ListAPIView):
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
     throttle_classes = [ReviewListThrottle]
-    
+    filter_backends = [DjangoFilterBackend]
+
     def get_queryset(self):
         pk = self.kwargs['pk']
         review = Review.objects.filter(watchlist=pk)
@@ -66,30 +68,6 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
     permission_classes = [ReviewUserOrReadOnly]
 
-#  viewsets and routers
-
-# class ReviewListAV(ListModelMixin, CreateModelMixin, GenericAPIView):
-#     queryset = Review.objects.all()
-#     serializer_class = Reviewserializers
-#
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-#
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-#
-# class ReviewDetail(RetrieveModelMixin, UpdateModelMixin,DestroyModelMixin, GenericAPIView):
-#     queryset = Review.objects.all()
-#     serializer_class = Reviewserializers
-#
-#     def get(self, request, *args, **kwargs):
-#         return self.retrieve(request, *args, **kwargs)
-#
-#     def put(self, request, *args, **kwargs):
-#         return self.update(request, *args, **kwargs)
-#
-#     def delete(self, request, *args, **kwargs):
-#         return self.destroy(request, *args, **kwargs)
 
 class WatchListView(APIView):
 
