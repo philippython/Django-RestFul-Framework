@@ -17,6 +17,13 @@ from watchmate.models import WatchList, StreamPlatform, Review
 from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 from watchmate.api.throttling import ReviewCreateThrottle, ReviewListThrottle
 
+class UserReviewList(ListAPIView):
+    serializer_class = Reviewserializers
+    
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return Review.objects.filter(username__username=username)
+
 
 class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
