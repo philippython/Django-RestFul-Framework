@@ -30,7 +30,7 @@ class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
     throttle_classes = [ReviewListThrottle]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['active', 'username_username']
+    filterset_fields = ['active', 'username__username']
 
     def get_queryset(self):
         pk = self.kwargs['pk']
