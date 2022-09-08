@@ -12,6 +12,7 @@ from rest_framework.mixins import (ListModelMixin, CreateModelMixin,
 from .serializers import (WatchListSerializers, StreamPlatformSerializers,
                           Reviewserializers)
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from watchmate.models import WatchList, StreamPlatform, Review
 from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
