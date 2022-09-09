@@ -64,16 +64,16 @@ class ReviewCreate(CreateAPIView):
         serializer.save(watchlist=watchlist, username=self.request.user)
 
 class ReviewDetail(RetrieveUpdateDestroyAPIView):
+
     queryset = Review.objects.all()
     serializer_class = Reviewserializers
-
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
     permission_classes = [ReviewUserOrReadOnly]
 
 
 class WatchListView(APIView):
 
-    # permission_classes = [AdminOrReadOnly]
+    permission_classes = [AdminOrReadOnly]
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
 

@@ -6,7 +6,7 @@ class AdminOrReadOnly(permissions.IsAdminUser):
         if request.method in permissions.SAFE_METHODS:
             return True
         else:
-            return bool(request.user and request.user.is_staff)
+            return bool(request.user and  request.user.is_staff)
 
 class ReviewUserOrReadOnly(permissions.BasePermission):
 
