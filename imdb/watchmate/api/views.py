@@ -17,7 +17,7 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from watchmate.models import WatchList, StreamPlatform, Review
 from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 from watchmate.api.throttling import ReviewCreateThrottle, ReviewListThrottle
-
+from watchmate.api.pagination import ViewPaginator
 
 class UserReviewList(ListAPIView):
     serializer_class = Reviewserializers
@@ -31,6 +31,7 @@ class ReviewList(ListAPIView):
     serializer_class = Reviewserializers
     throttle_classes = [ReviewListThrottle]
     filter_backends = [DjangoFilterBackend]
+    pagination_class = ViewPaginator
     filterset_fields = ['active', 'username__username']
 
     def get_queryset(self):
@@ -71,23 +72,11 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [ReviewUserOrReadOnly]
 
 
-class WatchListView(APIView):
-
+class WatchListView(ListAPIView):
+    queryset = WatchList.objects.all()
     permission_classes = [AdminOrReadOnly]
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
-
-
-    def get(self, request):
-        movies = WatchList.objects.all()
-        serializer = WatchListSerializers(movies, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = WatchListSerializers(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    pagination_class = ViewPaginator
 
 
 class WatchDetailsView(APIView):
@@ -103,9 +92,7 @@ class WatchDetailsView(APIView):
             serializer = WatchListSerializers(movie)
             return Response(serializer.data, status=status.HTTP_200_OK)
     def put(self, request, pk):
-        try:
-            # a05eb9958885cd9170d1fffce2ce77ecdaa53122
-    
+        try:    
             movie = WatchList.objects.get(pk=pk)
 
         except WatchList.DoesNotExist:
