@@ -74,6 +74,7 @@ class ReviewDetail(RetrieveUpdateDestroyAPIView):
 
 class WatchListView(ListAPIView):
     queryset = WatchList.objects.all()
+    serializer_class = WatchListSerializers
     permission_classes = [AdminOrReadOnly]
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
     pagination_class = ViewPaginator
