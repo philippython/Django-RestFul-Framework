@@ -17,7 +17,7 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from watchmate.models import WatchList, StreamPlatform, Review
 from watchmate.api.permission import AdminOrReadOnly, ReviewUserOrReadOnly
 from watchmate.api.throttling import ReviewCreateThrottle, ReviewListThrottle
-from watchmate.api.pagination import ViewPaginator
+from watchmate.api.pagination import ViewPaginator, WatchListPaginatorLO
 
 class UserReviewList(ListAPIView):
     serializer_class = Reviewserializers
@@ -77,7 +77,7 @@ class WatchListView(ListAPIView):
     serializer_class = WatchListSerializers
     permission_classes = [AdminOrReadOnly]
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
-    pagination_class = ViewPaginator
+    pagination_class = WatchListPaginatorLO
 
 
 class WatchDetailsView(APIView):
