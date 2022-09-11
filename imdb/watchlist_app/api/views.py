@@ -1,8 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework  import status
-from rest_framework.exceptions import ValidationError
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 # from rest_framework_simplejwt.tokens import RefreshToken
@@ -35,7 +33,7 @@ def registration_view(request):
             #         'refresh': str(refresh),
             #         'access': str(refresh.access_token),
             #     }
-            return Response(data)
+            return Response(data, status.HTTP_201_CREATED)
 
         else:
             return Response(serializer.errors)
