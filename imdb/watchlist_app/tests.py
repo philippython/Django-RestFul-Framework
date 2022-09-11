@@ -1,11 +1,10 @@
 from http import client
 from rest_framework.test import APITestCase
-import rest_framework
+from django.contrib.auth.models import User
 from rest_framework import status
 from django.urls import reverse
-from django.contrib.auth.models import User
 
-class UserRegistrationTest(APITestCase):
+class RegistrationTest(APITestCase):
     """test registration route"""
 
     def test_register_user(self):
@@ -18,7 +17,3 @@ class UserRegistrationTest(APITestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get().name, "philip")
 
-
-
-if __name__ == '__main__':
-    rest_framework.test.main()
