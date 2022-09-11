@@ -9,5 +9,5 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
-class Account(models.Model):
+class TestAccount(models.Model):
     name = models.CharField(max_length=25)
