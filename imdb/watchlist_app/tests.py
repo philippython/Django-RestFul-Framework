@@ -18,6 +18,8 @@ class RegistrationTest(APITestCase):
                 "password2": "NewPassword@123"
                 }
 
-        response = self.client.post(url, data)
+        response = self.client.post(url, data,'json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(User.objects.get().username, "testcase")
+        self.assertEqual(User.objects.count(), 1)
         
