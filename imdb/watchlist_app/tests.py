@@ -1,5 +1,5 @@
+from http import client
 from rest_framework.test import APITestCase
-from rest_framework.response import Response
 import rest_framework
 from rest_framework import status
 from django.urls import reverse
@@ -11,10 +11,12 @@ class UserRegistrationTest(APITestCase):
     def test_register_user(self):
 
         url = reverse('register')
+        data = {"name": "philip"}
 
-        self.assertEqual(url.response.status_code, status.HTTP_201_CREATED)
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.count(), 1)
-        self.assertEqual(User.objects.get().username, "hp")
+        self.assertEqual(User.objects.get().name, "philip")
 
 
 
