@@ -33,7 +33,7 @@ def registration_view(request):
             #         'refresh': str(refresh),
             #         'access': str(refresh.access_token),
             #     }
-            return Response(data, status.HTTP_201_CREATED)
+            return Response(data, status=status.HTTP_201_CREATED)
 
         else:
             return Response(serializer.errors)

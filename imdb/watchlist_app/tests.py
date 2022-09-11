@@ -5,6 +5,7 @@ from rest_framework import status
 from django.urls import reverse
 
 class RegistrationTest(APITestCase):
+
     """test registration route"""
 
     def test_register_user(self):
@@ -13,12 +14,10 @@ class RegistrationTest(APITestCase):
         data = {
                 "username": "testcase",
                 "email": "testcase@example.com",
-                "password1": "NewPassword@123",
+                "password": "NewPassword@123",
                 "password2": "NewPassword@123"
                 }
 
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(User.objects.count(), 1)
-        self.assertEqual(User.objects.filter(email__exact="temitayo@gmail.com"), "temitayo@gmail.com")
-
+        
