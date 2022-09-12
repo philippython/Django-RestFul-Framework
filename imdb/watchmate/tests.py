@@ -20,7 +20,7 @@ class StreamPlatformTestCase(APITestCase):
       self.token_key = Token.objects.get(user__username="testcase1").key
       self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 
-  def test_streamplatform_post(self):
+  def test_streamplatform_create(self):
 
       data = {
         "name": "TestPlatform",
@@ -30,8 +30,10 @@ class StreamPlatformTestCase(APITestCase):
       response = self.client.post(reverse('streamplatform_list'), data, "json")
       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-
-
+  def test_streamplatform_list(self):
+    
+      response = self.client.get(reverse('streamplatform_list'))
+      self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 
