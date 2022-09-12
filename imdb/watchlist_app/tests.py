@@ -23,3 +23,12 @@ class RegistrationTest(APITestCase):
         self.assertEqual(User.objects.get().username, "testcase")
         self.assertEqual(User.objects.count(), 1)
         
+
+class LoginLogoutTest(APITestCase):
+
+    """tests Login and Logout"""
+    def setup(self):
+        data = {
+                "email": "testcase",
+                "password": "NewPassword@123",
+                }
