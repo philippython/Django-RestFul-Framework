@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from django.urls import reverse
 
-class RegistrationTest(APITestCase):
+class RegistrationTestCase(APITestCase):
 
     """test registration route"""
 
@@ -24,7 +24,7 @@ class RegistrationTest(APITestCase):
         self.assertEqual(User.objects.count(), 1)
         
 
-class LoginLogoutTest(APITestCase):
+class LoginLogoutTestCase(APITestCase):
 
     """tests Login and Logout"""
     def setUp(self):

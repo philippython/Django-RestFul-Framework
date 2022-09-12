@@ -1,7 +1,63 @@
-from array import array
-from django.test import TestCase
+from urllib import response
+from watchmate.models import StreamPlatform, Review, WatchList
+from watchmate.api.serializers import StreamPlatformSerializers, WatchListSerializers, Reviewserializers
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase
+from django.contrib.auth.models import User
+from rest_framework import status
+from django.urls import reverse
+
+
 
 # Create your tests here.
+class StreamPlatformTestCase(APITestCase):
+
+  """Tests StreamPlatform"""
+
+  def setUp(self):
+      self.user = User.objects.create_user(username="testcase1", password="testcase123")
+
+  def test_streamplatform_post(self):
+
+      data = {
+        "name": "TestPlatform",
+        "about" : "A testing streaming platform",
+        "website": "www.testplatform.com"
+      }
+
+      self.token_key = Token.objects.get(user__username="testcase1").key
+      self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
+      response = self.client.post(reverse('streamplatform/list', )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """
 class Property:
     def __init__(self) -> None:
