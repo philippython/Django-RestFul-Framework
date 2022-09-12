@@ -15,7 +15,10 @@ class StreamPlatformTestCase(APITestCase):
   """Tests StreamPlatform"""
 
   def setUp(self):
-      self.user = User.objects.create_user(username="testcase1", password="testcase123")
+      self.user = User.objects.create_user(username="testcase1", password="testcase@123")
+
+      self.token_key = Token.objects.get(user__username="testcase1").key
+      self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 
   def test_streamplatform_post(self):
 
@@ -24,9 +27,6 @@ class StreamPlatformTestCase(APITestCase):
         "about" : "A testing streaming platform",
         "website": "www.testplatform.com"
       }
-
-      self.token_key = Token.objects.get(user__username="testcase1").key
-      self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
       response = self.client.post(reverse('streamplatform_list'), data, "json")
       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
