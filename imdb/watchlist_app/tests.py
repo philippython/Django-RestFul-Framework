@@ -27,16 +27,18 @@ class RegistrationTest(APITestCase):
 class LoginLogoutTest(APITestCase):
 
     """tests Login and Logout"""
-    def setup(self):
+    def setUp(self):
+
+        self.user = User.objects.create_user(username="testcase", password ="NewPassword@123",)
+       
+
+    def test_login_user(self):
         data = {
                 "username": "testcase",
                 "password": "NewPassword@123",
                 }
 
-        User.objects.create_user(username=data["username"], password = data["password"])
-        return data
-
-    def test_login_user(self):
-
-        response = self.client.post(reverse('login'), self.setup())
+        response = self.client.post(reverse('login'), data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_logout_user(self):
