@@ -42,3 +42,9 @@ class LoginLogoutTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_logout_user(self):
+
+        data = {
+                "Authorization" : "Token {}".format(Token.objects.get(user=self.user).key())
+        }
+        response = self.client.post(reverse('logout'), data)
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
