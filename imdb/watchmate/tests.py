@@ -1,3 +1,4 @@
+from turtle import title
 from urllib import response
 from watchmate.models import StreamPlatform, Review, WatchList
 from watchmate.api.serializers import StreamPlatformSerializers, WatchListSerializers, Reviewserializers
@@ -41,13 +42,15 @@ class StreamPlatformTestCase(APITestCase):
 
 class watchListTestCase(APITestCase):
 	
-	""""test watchlist route """"
+	"""test watchlist route """
 	def setUp(self):
 		self.user = User.objects.create_user(username="testcase1", password="testcase@123")
 
 		self.token_key = Token.objects.get(user__username="testcase1").key
 		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
-		self.watchlist = WatchList.objects.create()
+		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuridtic lagos movie by Disney",
+											      active=False, stream_platform=1)
+
 
 
 
