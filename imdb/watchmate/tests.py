@@ -81,7 +81,7 @@ class ReviewTestCase(APITestCase):
 		self.stream = StreamPlatform.objects.create(name="TestPlatform", about="A testing streaming platform", website= "www.testplatform.com") 
 		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuristic lagos movie by Disney",
 											      active=False, stream_platform=self.stream)
-		self.review = Review.objects.create(username=self.user, rating=4.0, description="Amazing sci-fi movie", active=False, watchlist=self.watchlist)
+		self.review = Review.objects.create(username=self.user, rating=5.0, description="Amazing sci-fi movie", active=False, watchlist=self.watchlist)
 
 	def test_review_create(self):
 		data = {
@@ -93,7 +93,7 @@ class ReviewTestCase(APITestCase):
 		}
 
 		response = self.client.post(reverse('create_review', kwargs={"pk": 1}), data)
-		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+		self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 		self.assertEqual(Review.objects.get().rating, 5)
 		self.assertEqual(Review.objects.count(), 1)
 
@@ -116,12 +116,13 @@ class ReviewTestCase(APITestCase):
 
 	def test_review_update(self):
 		data = {
-				"username" : self.user,
-				"rating" : 4.0,
-				"description": "Amazing sci-fi movie",
-				"active": False,
-				"watchlist": self.watchlist
-			    }
+			"username" : self.user,
+			"rating" : 4.0,
+			"description": "Amazing sci-fi movie",
+			"active": False,
+			"watchlist": self.watchlist
+		}
 
 		response = self.client.put(reverse('review_detail', kwargs={"pk": 1}), data)
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
+
