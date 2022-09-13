@@ -45,11 +45,12 @@ class watchListTestCase(APITestCase):
 	"""test watchlist route """
 	def setUp(self):
 		self.user = User.objects.create_user(username="testcase1", password="testcase@123")
+		self.stream = StreamPlatform.objects.create(name="TestPlatform", about="A testing streaming platform", website= "www.testplatform.com") 
 
 		self.token_key = Token.objects.get(user__username="testcase1").key
 		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuridtic lagos movie by Disney",
-											      active=False, stream_platform=1)
+											      active=False, stream_platform=self.stream)
 	def test_watchlist_create(self):
 			data = {
 					"title":"Iwaju and Gwaju", 
@@ -79,7 +80,7 @@ class ReviewTestCase(APITestCase):
 		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 		self.stream = StreamPlatform.objects.create(name="TestPlatform", about="A testing streaming platform", website= "www.testplatform.com") 
 		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuristic lagos movie by Disney",
-											      active=False, stream_platform="TestPlatform")
+											      active=False, stream_platform=self.stream)
 
 
 	def test_review_create(self):
@@ -100,3 +101,15 @@ class ReviewTestCase(APITestCase):
 		self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
+	def test_review_unauth(self):
+		data = {
+			"username" : self.user,
+			"rating" : 5.0,
+			"description": "Amazing sci-fi movie",
+			"active": True,
+			"watchlist": self.watchlist
+		}
+
+		self.client.force_authenticate(user=None)
+		response = self.client.post(reverse('create_review', kwargs={"pk": 1}), data)
+		self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
