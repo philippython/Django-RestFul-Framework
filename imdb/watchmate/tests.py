@@ -19,6 +19,7 @@ class StreamPlatformTestCase(APITestCase):
 
       self.token_key = Token.objects.get(user__username="testcase1").key
       self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
+      self.stream = StreamPlatform.objects.create(name="TestPlatform", about="A testing streaming platform", website= "www.testplatform.com") 
 
   def test_streamplatform_create(self):
 
@@ -31,14 +32,22 @@ class StreamPlatformTestCase(APITestCase):
       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
   def test_streamplatform_list(self):
-    
       response = self.client.get(reverse('streamplatform_list'))
       self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+  def test_streamplatform_ind(self):
+      response = self.client.get(reverse('single_streamplatform', kwargs={"pk": 1}))
+      self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+class watchListTestCase(APITestCase):
+	
+	""""test watchlist route """"
+	def setUp(self):
+		self.user = User.objects.create_user(username="testcase1", password="testcase@123")
 
-
-
+		self.token_key = Token.objects.get(user__username="testcase1").key
+		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
+		self.watchlist = WatchList.objects.create()
 
 
 
