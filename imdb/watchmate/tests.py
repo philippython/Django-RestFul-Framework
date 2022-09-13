@@ -71,14 +71,15 @@ class watchListTestCase(APITestCase):
 			self.assertEqual(WatchList.objects.count(), 1)
 
 class ReviewTestCase(APITestCase):
-	def setUP(self):
+
+	def setUp(self):
 		self.user = User.objects.create_user(username="testcase1", password="testcase@123")
 
 		self.token_key = Token.objects.get(user__username="testcase1").key
 		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 		self.stream = StreamPlatform.objects.create(name="TestPlatform", about="A testing streaming platform", website= "www.testplatform.com") 
 		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuridtic lagos movie by Disney",
-											      active=False, stream_platform=1)
+											      active=False, stream_platform=self.stream)
 
 
 	def test_review_create(self):
@@ -87,17 +88,14 @@ class ReviewTestCase(APITestCase):
 			"rating" : 5.0,
 			"description": "Amazing sci-fi movie",
 			"active": True,
-			"watchlist": 1
+			"watchlist": self.watchlist
 		}
 
-		response = self.client.post(reverse('create_review'), data)
-		self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-
-
-
-
-
+		response = self.client.post(reverse('create_review', kwargs={"pk": 1}), data)
+		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+		
+		response = self.client.post(reverse('create_review', kwargs={"pk": 1}), data)
+		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
 

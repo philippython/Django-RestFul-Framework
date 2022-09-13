@@ -9,7 +9,6 @@ class Reviewserializers(serializers.ModelSerializer):
         exclude  = ['watchlist']
 
 class WatchListSerializers(serializers.ModelSerializer):
-    # reviews = Reviewserializers(many=True, read_only=True)
     stream_platform  = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = WatchList
