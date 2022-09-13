@@ -51,15 +51,14 @@ class watchListTestCase(APITestCase):
 		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuridtic lagos movie by Disney",
 											      active=False, stream_platform=1)
 		def test_watchlist_create(self):
-				data = {
-						"title":"Iwaju and Gwaju", 
-						"description" : "A futuridtic lagos movie by Disney",
-						"active":False,
-						"stream_platform":1
-						}
-				response = self.client.post(reverse('watchlist'), data)
-				self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-				self.assertEqual(WatchList.objects.count(), 1)
+			data = {
+					"title":"Iwaju and Gwaju", 
+					"description" : "A futuridtic lagos movie by Disney",
+					"active":False,
+					"stream_platform":1
+					}
+			response = self.client.post(reverse('watchlist'), data)
+			self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 		def test_watchlist_list(self):
 			response = self.client.get(reverse('watchlist'))
@@ -68,15 +67,21 @@ class watchListTestCase(APITestCase):
 		def test_watchlist_ind(self):
 			response = self.client.get(reverse('single_watchlist', kwargs={"pk": self.watchlist.id}))
 			self.assertEqual(response.status_code, status.HTTP_200_OK)
+			self.assertEqual(WatchList.objects.get().title, 'Iwaju and Gwaju')
+			self.assertEqual(WatchList.objects.count(), 1)
+
+class ReviewTestCase(APITestCase):
+	def setUP(self):
+		self.user = User.objects.create_user(username="testcase1", password="testcase@123")
+
+		self.token_key = Token.objects.get(user__username="testcase1").key
+		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
+		self.stream = StreamPlatform.objects.create(name="TestPlatform", about="A testing streaming platform", website= "www.testplatform.com") 
+		self.watchlist = WatchList.objects.create(title="Iwaju and Gwaju", description="A futuridtic lagos movie by Disney",
+											      active=False, stream_platform=1)
 
 
-
-
-
-
-
-
-
+	def 
 
 
 
