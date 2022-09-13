@@ -81,8 +81,17 @@ class ReviewTestCase(APITestCase):
 											      active=False, stream_platform=1)
 
 
-	def 
+	def test_review_create(self):
+		data = {
+			"username" : self.user,
+			"rating" : 5.0,
+			"description": "Amazing sci-fi movie",
+			"active": True,
+			"watchlist": 1
+		}
 
+		response = self.client.post(reverse('create_review'), data)
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 
